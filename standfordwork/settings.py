@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from django.utils.translation import gettext_lazy as _
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework.authtoken',
     'django.contrib.sites', 
+    'drf_yasg',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -58,13 +62,13 @@ INSTALLED_APPS = [
     'jobs',
     'users',
     'dashboard',
-
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,6 +78,14 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',  
     
 ]
+LOCALE_PATHS = [
+
+    BASE_DIR / 'locale',
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 SITE_ID = 1
 
 REST_FRAMEWORK = {
@@ -147,12 +159,21 @@ AUTH_USER_MODEL = 'users.User'
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
+
+
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = [
+    ('uz', 'Uzbek'),     
+    ('ru', 'Russian'),   
+    ('en', 'English'),    
+    ('de', 'German'),     
+]
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 
@@ -165,3 +186,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Example for Gmail
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False  # Set to True if your SMTP server requires SSL instead of TLS
+EMAIL_HOST_USER = 'asdawit01@gmail.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'abuau5161'  # Replace with your email password
+
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+DEFAULT_FROM_EMAIL = 'STANDFORDWORK <asdawit01@example.com>'
+

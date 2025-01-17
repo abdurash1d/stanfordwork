@@ -14,6 +14,8 @@ class Job(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='jobs', default=1)
     title = models.CharField(max_length=200)
     description = models.TextField()
+    resume = models.FileField(upload_to='uploads/resumes/', blank =True,null=True)
+    extracted_text = models.TextField(null=True, blank=True)
     location = models.CharField(max_length=100)
     salary = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     job_type = models.CharField(max_length=50, choices=JOB_TYPE_CHOICES, default='full-time')
@@ -35,7 +37,6 @@ class Job(models.Model):
 class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
     candidate = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='applications')
-    resume = models.FileField(upload_to='resumes/')
     cover_letter = models.TextField(null=True, blank=True)
     applied_at = models.DateTimeField(auto_now_add=True)
     status_choices = [
@@ -52,3 +53,8 @@ class Application(models.Model):
 
     class Meta:
         ordering = ['-applied_at']
+
+
+class UploadedFile(models.Model):
+    file = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
