@@ -9,6 +9,8 @@ from .views import (
     PermissionListView,
     ResumeListView,
     ResumeDetailView,
+    StudentListCreateView,
+    StudentDetailView,
 )
 
 router = DefaultRouter()
@@ -26,4 +28,6 @@ urlpatterns = [
     path('resumes/', ResumeListView.as_view(), name='resume-list'),
     path('resumes/<int:pk>/', ResumeDetailView.as_view(), name='resume-detail'),
     path('', include(router.urls)),
+    path('students/', StudentListCreateView.as_view(), name='student-list'),
+    path('students/<int:pk>/', StudentDetailView.as_view(), name='student-detail'),
 ]

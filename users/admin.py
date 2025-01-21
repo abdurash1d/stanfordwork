@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group, Permission
-from .models import User, Resume
+from .models import User, Resume, Student
 
 
 # Customizing the User Admin Panel
@@ -63,3 +63,9 @@ class PermissionAdmin(admin.ModelAdmin):
     list_display = ('name', 'codename', 'content_type')
     search_fields = ('name', 'codename')
     list_filter = ('content_type',)
+
+
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'user')
+    search_fields = ('first_name', 'last_name', 'user__username')

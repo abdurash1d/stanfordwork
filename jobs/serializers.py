@@ -13,7 +13,6 @@ class JobSerializer(serializers.ModelSerializer):
 class ApplicationSerializer(serializers.ModelSerializer):
     job = JobSerializer(read_only=True)
     candidate = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
-    resume = serializers.FileField()
     
     class Meta:
         model = Application

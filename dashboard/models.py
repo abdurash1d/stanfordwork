@@ -1,8 +1,9 @@
 from django.db import models
 from django.conf import settings
 from jobs.models import Job
+from standfordwork.base_models import BaseModel  # Import BaseModel
 
-class JobViewLog(models.Model):
+class JobViewLog(BaseModel):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='view_logs')
     viewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='viewed_jobs')
     viewed_at = models.DateTimeField(auto_now_add=True)
@@ -14,7 +15,7 @@ class JobViewLog(models.Model):
         ordering = ['-viewed_at']
 
 
-class UserActivityLog(models.Model):
+class UserActivityLog(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='activity_logs')
     action = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -27,7 +28,7 @@ class UserActivityLog(models.Model):
         ordering = ['-timestamp']
 
 
-class JobApplicationStats(models.Model):
+class JobApplicationStats(BaseModel):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='application_stats')
     total_applications = models.PositiveIntegerField(default=0)
     last_updated = models.DateTimeField(auto_now=True)
@@ -39,7 +40,7 @@ class JobApplicationStats(models.Model):
         ordering = ['-last_updated']
 
 
-class AdminDashboardSettings(models.Model):
+class AdminDashboardSettings(BaseModel):
     key = models.CharField(max_length=255, unique=True)
     value = models.TextField()
 
@@ -50,14 +51,3 @@ class AdminDashboardSettings(models.Model):
         ordering = ['key']
 
 
-class JobPostingAnalytics(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='posting_analytics')
-    view_count = models.PositiveIntegerField(default=0)
-    update_count = models.PositiveIntegerField(default=0)
-    last_updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"Job {self.job.title} - {self.view_count} views, {self.update_count} updates"
-
-    class Meta:
-        ordering = ['-last_updated_at']

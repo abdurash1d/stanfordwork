@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
-from .models import User, Resume
+from .models import User, Resume, Student
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -54,3 +54,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
             user.set_password(password)
         user.save()
         return user
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['id', 'user', 'first_name', 'last_name']

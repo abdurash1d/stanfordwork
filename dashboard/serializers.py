@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import JobViewLog, UserActivityLog, JobApplicationStats, AdminDashboardSettings, JobPostingAnalytics
+from .models import JobViewLog, UserActivityLog, JobApplicationStats, AdminDashboardSettings
 from jobs.models import Job
 from django.contrib.auth.models import User
 
@@ -23,7 +23,3 @@ class AdminDashboardSettingsSerializer(serializers.ModelSerializer):
         model = AdminDashboardSettings
         fields = ['key', 'value']
 
-class JobPostingAnalyticsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = JobPostingAnalytics
-        fields = '__all__'

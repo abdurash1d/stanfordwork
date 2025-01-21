@@ -18,7 +18,4 @@ urlpatterns = [
     path('admin-dashboard-settings/', views.AdminDashboardSettingsListView.as_view(), name='admin-dashboard-settings-list'),
     path('admin-dashboard-settings/<int:pk>/', views.AdminDashboardSettingsDetailView.as_view(), name='admin-dashboard-settings-detail'),
 
-    # Job Posting Analytics URLs
-    path('job-posting-analytics/', views.JobPostingAnalyticsListView.as_view(), name='job-posting-analytics-list'),
-    path('job-posting-analytics/<int:pk>/', views.JobPostingAnalyticsDetailView.as_view(), name='job-posting-analytics-detail'),
 ]

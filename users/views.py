@@ -2,13 +2,14 @@ from rest_framework import generics, permissions, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import Group, Permission
-from .models import User, Resume
+from .models import User, Resume, Student
 from .serializers import (
     UserSerializer,
     UserCreateSerializer,
     GroupSerializer,
     PermissionSerializer,
     ResumeSerializer,
+    StudentSerializer,
 )
 from django.http import JsonResponse
 
@@ -103,3 +104,11 @@ class ResumeDetailView(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         return Resume.objects.filter(user=user)
 
+
+class StudentListCreateView(generics.ListCreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer

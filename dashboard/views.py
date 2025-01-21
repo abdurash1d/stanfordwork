@@ -1,11 +1,10 @@
 from rest_framework import generics, viewsets
-from .models import JobViewLog, UserActivityLog, JobApplicationStats, AdminDashboardSettings, JobPostingAnalytics
+from .models import JobViewLog, UserActivityLog, JobApplicationStats, AdminDashboardSettings
 from .serializers import (
     JobViewLogSerializer,
     UserActivityLogSerializer,
     JobApplicationStatsSerializer,
-    AdminDashboardSettingsSerializer,
-    JobPostingAnalyticsSerializer
+    AdminDashboardSettingsSerializer
 )
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
@@ -54,13 +53,3 @@ class AdminDashboardSettingsDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = AdminDashboardSettingsSerializer
     permission_classes = [IsAdminUser]
 
-# Job Posting Analytics Views
-class JobPostingAnalyticsListView(generics.ListAPIView):
-    queryset = JobPostingAnalytics.objects.all()
-    serializer_class = JobPostingAnalyticsSerializer
-    permission_classes = [IsAdminUser]
-
-class JobPostingAnalyticsDetailView(generics.RetrieveAPIView):
-    queryset = JobPostingAnalytics.objects.all()
-    serializer_class = JobPostingAnalyticsSerializer
-    permission_classes = [IsAdminUser]
