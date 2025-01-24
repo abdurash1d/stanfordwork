@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-from standfordwork.base_models import BaseModel  # Import BaseModel
+from stanfordwork.base_models import BaseModel  # Import BaseModel
 
 
 

@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from jobs.models import Job
-from standfordwork.base_models import BaseModel  # Import BaseModel
+from stanfordwork.base_models import BaseModel  # Import BaseModel
 
 class JobViewLog(BaseModel):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='view_logs')

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
-from standfordwork.base_models import BaseModel  # Import BaseModel
+from stanfordwork.base_models import BaseModel  # Import BaseModel
 
 class ContactInfo(BaseModel):
     phone_number = models.CharField(max_length=15, blank=True, null=True)

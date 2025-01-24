@@ -99,7 +99,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-ROOT_URLCONF = 'standfordwork.urls'
+ROOT_URLCONF = 'stanfordwork.urls'
 
 TEMPLATES = [
     {
@@ -117,7 +117,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'standfordwork.wsgi.application'
+WSGI_APPLICATION = 'stanfordwork.wsgi.application'
 
 
 # Database
@@ -200,5 +200,5 @@ EMAIL_HOST_PASSWORD = 'abuau5161'  # Replace with your email password
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-DEFAULT_FROM_EMAIL = 'STANDFORDWORK <asdawit01@example.com>'
+DEFAULT_FROM_EMAIL = 'STANFORDWORK <asdawit01@example.com>'
 

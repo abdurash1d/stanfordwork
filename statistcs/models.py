@@ -1,5 +1,5 @@
 from django.db import models
-from standfordwork.base_models import BaseModel
+from stanfordwork.base_models import BaseModel
 # from django.conf import settings
 from jobs.models import Job
 
