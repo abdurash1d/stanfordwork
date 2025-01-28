@@ -21,4 +21,4 @@ msgstr ""
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 #: home/templates/home/about.html:11
 msgid "Welcome to the About Page"
-msgstr ""
+msgstr "Добро пожаловать на страницу О компании"

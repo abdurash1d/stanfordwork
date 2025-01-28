@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'dashboard',
     'company',
     'statistcs',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -97,7 +98,21 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-}
+
+    'DEFAULT_SCHEMA_CLASS': (
+        'rest_framework.schemas.openapi.AutoSchema',
+        #'drf_spectacular.openapi.AutoSchema',
+    ),
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+   
+    }
 
 ROOT_URLCONF = 'stanfordwork.urls'
 
@@ -114,7 +129,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
-    },
+    }, 
 ]
 
 WSGI_APPLICATION = 'stanfordwork.wsgi.application'

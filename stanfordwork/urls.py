@@ -45,10 +45,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('', include('home.urls')),
     path('api/jobs/', include('jobs.urls')),  # Include URLs for the jobs app (from jobs/urls.py)
     path('api/users/', include('users.urls')),  # If you have a users app, include its URLs\
     path('dashboard/', include('dashboard.urls')),  # Includes dashboard-related endpoints
+    path('', include('home.urls')),
 
     # path('api/', include(router.urls)),
     

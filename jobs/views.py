@@ -10,6 +10,8 @@ from rest_framework.decorators import action
 from .serializers import JobSerializer
 from PyPDF2 import PdfReader
 from docx import Document
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 
 
@@ -17,6 +19,18 @@ class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
     permission_classes = [permissions.IsAuthenticated]
+        # Add filter backends
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+
+    # Specify the fields available for filtering
+    filterset_fields = ['location', 'job_type', 'category']
+
+    # Specify the fields available for search
+    search_fields = ['title', 'description']
+
+    # Specify the fields available for ordering
+    ordering_fields = ['created_at', 'title']
+    ordering = ['-created_at']  # Default ordering by newest first
 
     def perform_create(self, serializer):
         # Automatically assign the employer (user) who creates the job

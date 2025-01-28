@@ -9,9 +9,9 @@ router.register(r'jobs', JobViewSet)
 router.register(r'applications', ApplicationViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
     path("jobs/<int:job_id>/upload/", FileUploadView.as_view(), name="file-upload"),
-
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += router.urls

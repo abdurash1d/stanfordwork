@@ -19,4 +19,4 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 #: home/templates/home/about.html:11
 msgid "Welcome to the About Page"
-msgstr ""
+msgstr "Haqida sahifasiga xush kelibsiz"

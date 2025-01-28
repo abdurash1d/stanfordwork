@@ -19,4 +19,4 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: home/templates/home/about.html:11
 msgid "Welcome to the About Page"
-msgstr ""
+msgstr "Willkommen auf der About-Seite"
