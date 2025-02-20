@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import  JobPostingAnalytics
 from jobs.models import Job
 

@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import Company, CompanyResponsiblePerson
+
+from .models import (Company, 
+                     CompanyResponsiblePerson)
+
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,7 +11,7 @@ class CompanySerializer(serializers.ModelSerializer):
 
 
 class CompanyResponsiblePersonSerializer(serializers.ModelSerializer):
-    company = serializers.StringRelatedField()  # Display the company name in the API
+    company = serializers.StringRelatedField() 
 
     class Meta:
         model = CompanyResponsiblePerson

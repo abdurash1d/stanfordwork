@@ -2,10 +2,11 @@ from django.contrib import admin
 from django.conf import settings
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group, Permission
-from .models import User, Resume, Student
 
+from .models import (User, 
+                     Resume, 
+                     Student)
 
-# Customizing the User Admin Panel
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     """
@@ -31,8 +32,6 @@ class UserAdmin(BaseUserAdmin):
     )
     filter_horizontal = ('groups', 'user_permissions')
 
-
-# Registering the Resume Model
 @admin.register(Resume)
 class ResumeAdmin(admin.ModelAdmin):
     """
@@ -44,7 +43,7 @@ class ResumeAdmin(admin.ModelAdmin):
     ordering = ('-uploaded_at',)
 
 admin.site.unregister(Group)
-# Customizing the Group Admin Panel
+
 @admin.register(Group)
 class CustomGroupAdmin(admin.ModelAdmin):
     """
@@ -53,8 +52,6 @@ class CustomGroupAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
-
-# Registering Permission Model
 @admin.register(Permission)
 class PermissionAdmin(admin.ModelAdmin):
     """
@@ -64,8 +61,8 @@ class PermissionAdmin(admin.ModelAdmin):
     search_fields = ('name', 'codename')
     list_filter = ('content_type',)
 
-
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'user')
     search_fields = ('first_name', 'last_name', 'user__username')
+    

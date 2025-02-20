@@ -1,7 +1,9 @@
 from django.db import models
 from django.conf import settings
+
 from jobs.models import Job
-from stanfordwork.base_models import BaseModel  # Import BaseModel
+from stanfordwork.base_models import BaseModel 
+
 
 class JobViewLog(BaseModel):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='view_logs')
@@ -50,4 +52,11 @@ class AdminDashboardSettings(BaseModel):
     class Meta:
         ordering = ['key']
 
+class SMSNotification(BaseModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    message = models.TextField()
+    sent_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"SMS Notification to {self.user.username}"
+    
