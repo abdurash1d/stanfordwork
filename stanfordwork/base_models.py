@@ -8,4 +8,5 @@ class BaseModel(models.Model):
     updated_at = models.DateTimeField(default=now)
 
     class Meta:
-        abstract = True  # This ensures the model won't create a database table
+        abstract = True 
+        

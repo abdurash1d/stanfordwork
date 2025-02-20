@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.contrib.auth.models import Group, Permission
-from .models import User, Resume
 from django.urls import reverse
+
+from .models import User, Resume
+
 
 class UserModelTest(TestCase):
     def setUp(self):
@@ -45,7 +47,7 @@ class PermissionTest(TestCase):
         self.permission = Permission.objects.create(
             name='Can View Dashboard',
             codename='can_view_dashboard',
-            content_type_id=1  # Replace with a valid ContentType ID
+            content_type_id=1  
         )
 
     def test_permission_creation(self):

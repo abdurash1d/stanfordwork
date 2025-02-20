@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import JobViewLog, UserActivityLog, JobApplicationStats, AdminDashboardSettings
+
+from .models import (JobViewLog, 
+                     UserActivityLog, 
+                     JobApplicationStats, 
+                     AdminDashboardSettings,
+                     SMSNotification)
+
 
 @admin.register(JobViewLog)
 class JobViewLogAdmin(admin.ModelAdmin):
@@ -24,4 +30,4 @@ class AdminDashboardSettingsAdmin(admin.ModelAdmin):
     list_display = ('key', 'value')
     search_fields = ('key',)
 
-
+admin.site.register(SMSNotification)

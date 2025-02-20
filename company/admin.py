@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Company, CompanyResponsiblePerson
+
+from .models import (Company, 
+                     CompanyResponsiblePerson)
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):

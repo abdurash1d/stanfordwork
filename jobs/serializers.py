@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import Job, Application
 from django.contrib.auth import get_user_model
+
+from .models import (Job, 
+                     Application,
+                     JobCategory,
+                     JobInquiry,
+                     Review)
+
 
 class JobSerializer(serializers.ModelSerializer):
     employer = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
@@ -16,4 +22,22 @@ class ApplicationSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Application
+        fields = '__all__'
+
+
+class JobCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobCategory
+        fields = '__all__'
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
+class JobInquirySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobInquiry
         fields = '__all__'

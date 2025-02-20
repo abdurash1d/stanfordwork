@@ -2,16 +2,15 @@ from rest_framework import generics, permissions, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import Group, Permission
-from .models import User, Resume, Student
-from .serializers import (
-    UserSerializer,
-    UserCreateSerializer,
-    GroupSerializer,
-    PermissionSerializer,
-    ResumeSerializer,
-    StudentSerializer,
-)
 from django.http import JsonResponse
+
+from .models import User, Resume, Student
+from .serializers import (UserSerializer,
+                         UserCreateSerializer,
+                         GroupSerializer,
+                         PermissionSerializer,
+                         ResumeSerializer,
+                         StudentSerializer)
 
 # class RegisterView(View):
 #     def get(self, request):
@@ -30,13 +29,14 @@ from django.http import JsonResponse
 #         return JsonResponse({'message': 'Login successful'})
 
 # User Management Views
+
 class UserListView(generics.ListAPIView):
     """
     View to list all users.
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAdminUser]  # Restrict to admin users
+    permission_classes = [permissions.IsAdminUser] 
 
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -54,10 +54,9 @@ class UserCreateView(generics.CreateAPIView):
     """
     queryset = User.objects.all()
     serializer_class = UserCreateSerializer
-    permission_classes = [permissions.AllowAny]  # Publicly accessible
+    permission_classes = [permissions.AllowAny] 
 
 
-# Group Management Views
 class GroupViewSet(viewsets.ModelViewSet):
     """
     ViewSet for managing groups.
@@ -67,7 +66,6 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAdminUser]
 
 
-# Permission Management Views
 class PermissionListView(generics.ListAPIView):
     """
     View to list all permissions.
@@ -77,7 +75,6 @@ class PermissionListView(generics.ListAPIView):
     permission_classes = [permissions.IsAdminUser]
 
 
-# Resume Management Views
 class ResumeListView(generics.ListCreateAPIView):
     """
     View to list all resumes or create a new resume.
@@ -87,7 +84,6 @@ class ResumeListView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        # Automatically associate the resume with the logged-in user
         serializer.save(user=self.request.user)
 
 
@@ -100,7 +96,6 @@ class ResumeDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Restrict access to resumes owned by the logged-in user
         user = self.request.user
         return Resume.objects.filter(user=user)
 
@@ -108,7 +103,9 @@ class ResumeDetailView(generics.RetrieveUpdateDestroyAPIView):
 class StudentListCreateView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    
 
 class StudentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    

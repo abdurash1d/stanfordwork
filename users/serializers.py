@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
-from .models import User, Resume, Student
+
+from .models import (User, 
+                     Resume, 
+                     Student)
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -22,9 +25,9 @@ class ResumeSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    groups = GroupSerializer(many=True, read_only=True)  # Groups assigned to the user
-    user_permissions = PermissionSerializer(many=True, read_only=True)  # User-specific permissions
-    resume = ResumeSerializer(read_only=True)  # Resume associated with the user
+    groups = GroupSerializer(many=True, read_only=True)  
+    user_permissions = PermissionSerializer(many=True, read_only=True)  
+    resume = ResumeSerializer(read_only=True) 
 
     class Meta:
         model = User
@@ -47,13 +50,13 @@ class UserCreateSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        # Use the create_user method to ensure the password is hashed
         password = validated_data.pop('password', None)
         user = User(**validated_data)
         if password:
             user.set_password(password)
         user.save()
         return user
+
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-from stanfordwork.base_models import BaseModel  # Import BaseModel
 
+from stanfordwork.base_models import BaseModel
 
 
 class User(AbstractUser, BaseModel):
@@ -14,15 +14,13 @@ class User(AbstractUser, BaseModel):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     groups = models.ManyToManyField(Group, related_name="users", blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name="users", blank=True)
-    # created_at = models.DateTimeField(auto_now_add=True)
-    # updated_at = models.DateTimeField(auto_now=True)
-    
+ 
     class Meta:
         db_table = 'users'
 
-
     def __str__(self):
         return f"{self.username} ({self.role})"
+        
         
 class Resume(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="resume")
@@ -31,6 +29,7 @@ class Resume(BaseModel):
 
     def __str__(self):
         return f"Resume of {self.user.username}"
+    
 
 class Student(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="students")
@@ -39,3 +38,4 @@ class Student(BaseModel):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    

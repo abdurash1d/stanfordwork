@@ -4,13 +4,23 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
-from .models import Job, Application
-from .serializers import JobSerializer, ApplicationSerializer
 from rest_framework.decorators import action
-from .serializers import JobSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+from .models import (Job, 
+                     Application,
+                     JobCategory,
+                     Review,
+                     JobInquiry)
+
+from .serializers import (JobSerializer, 
+                          ApplicationSerializer,
+                          JobCategorySerializer,
+                          ReviewSerializer,
+                          JobInquirySerializer)
+
 from PyPDF2 import PdfReader
 from docx import Document
-
 
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -19,7 +29,6 @@ class JobViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        # Automatically assign the employer (user) who creates the job
         serializer.save(employer=self.request.user)
 
     @action(detail=True, methods=['get'])
@@ -36,7 +45,6 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        # Automatically assign the candidate (user) who applies for the job
         serializer.save(candidate=self.request.user)
 
 
@@ -57,7 +65,6 @@ class FileUploadView(APIView):
         if not file:
             return Response({"error": "No file uploaded."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Validate file type
         allowed_types = [
             "application/pdf",
             "application/msword",
@@ -66,11 +73,9 @@ class FileUploadView(APIView):
         if file.content_type not in allowed_types:
             return Response({"error": "Invalid file type."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Save the file to the Job model
         job.resume = file
         job.save()
 
-        # Extract content if it's a PDF or DOCX file
         extracted_content = None
         try:
             if file.name.endswith(".pdf"):
@@ -83,7 +88,6 @@ class FileUploadView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-        # Return a detailed response
         return Response(
             {
                 "message": "File uploaded and processed successfully.",
@@ -111,4 +115,21 @@ class FileUploadView(APIView):
         """
         doc = Document(file)
         return '\n'.join([paragraph.text for paragraph in doc.paragraphs])
+
+
+class JobCategoryViewSet(viewsets.ModelViewSet):
+    queryset = JobCategory.objects.all()
+    serializer_class = JobCategorySerializer
+    
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class JobInquiryViewSet(viewsets.ModelViewSet):
+    queryset = JobInquiry.objects.all()
+    serializer_class = JobInquirySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
