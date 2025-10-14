@@ -1,25 +1,63 @@
+# Core
 asgiref==3.8.1
-cffi==1.17.1
-cryptography==44.0.1
 Django==5.1.6
+psycopg2-binary==2.9.10
+pytz==2025.1
+
+# API
+Django==5.1.6
+djangorestframework==3.15.2
+drf-yasg==1.21.8
+djangorestframework-simplejwt==5.4.0
+
+# Security
 django-allauth==65.4.1
 django-cors-headers==4.7.0
-django-rest-auth==0.9.5
-djangorestframework==3.15.2
-djangorestframework_simplejwt==5.4.0
-drf-yasg==1.21.8
+django-axes==7.0.0
+django-ipware==7.0.1
+django-http-referrer-policy==1.0.0
+django-secure==1.0.2
+
+# Background Tasks
+celery==5.3.6
+django-celery-beat==2.8.1
+django-celery-results==2.5.0
+redis==5.0.1
+
+# File Processing
+python-docx==1.1.2
+PyPDF2==3.0.1
+python-magic==0.4.27
+
+# Utilities
+django-environ==0.12.0
+whitenoise==6.6.0
+gunicorn==21.2.0
+django-filter==24.1
+django-import-export==3.3.6
+django-audit-log==0.7.0
+
+# Monitoring
+sentry-sdk==1.45.0
+
+# Dependencies
+cffi==1.17.1
+cryptography==44.0.1
 inflection==0.5.1
 lxml==5.3.1
 packaging==24.2
 psycopg==3.2.4
-psycopg2-binary==2.9.10
 pycparser==2.22
 PyJWT==2.10.1
-PyPDF2==3.0.1
-python-docx==1.1.2
-pytz==2025.1
 PyYAML==6.0.2
 six==1.17.0
 sqlparse==0.5.3
 typing_extensions==4.12.2
 uritemplate==4.1.1
+
+# Testing
+pytest==7.4.0
+pytest-django==4.5.2
+pytest-cov==4.1.0
+factory-boy==3.3.0
+faker==19.3.0

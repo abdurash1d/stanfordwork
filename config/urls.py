@@ -15,19 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path, include
 from rest_framework import permissions
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-# from rest_framework.routers import DefaultRouter
-# from jobs.views import JobViewSet
-# from users.views import UserProfileViewSet
 
-# router = DefaultRouter()
-# router.register('jobs', JobViewSet, basename='job')
-# router.register('users', UserProfileViewSet, basename='user')
+from apps.health.views import HealthCheckView
 
 
 schema_view = get_schema_view(
@@ -44,17 +44,30 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    # Health check endpoint
+    path('health/', HealthCheckView.as_view(), name='health_check'),
+    
+    # Admin
     path('admin/', admin.site.urls),
+    
+    # Authentication
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    
+    # API endpoints
+    path('api/users/', include('apps.users.urls')),
+    path('api/jobs/', include('apps.jobs.urls')),  
+    path('dashboard/', include('apps.dashboard.urls')), 
+    path('rosetta/', include('rosetta.urls')),
+    
+    # Main app
+    path('', include('apps.home.urls')),
+    
+    # API Documentation
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('', include('apps.home.urls')),
-    path('api/jobs/', include('apps.jobs.urls')),  
-    path('api/users/', include('apps.users.urls')), 
-    path('dashboard/', include('apps.dashboard.urls')), 
-
-    # path('api/', include(router.urls)),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    
